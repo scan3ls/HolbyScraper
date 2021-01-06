@@ -41,14 +41,17 @@ class Parser:
         appending = False
         objectives = []
         for line in self.__data:
-            if re.match(".+Learning objectives.+", line):
+
+            if re.match(".+Learning Objectives.+", line):
                 appending = True
 
             r1 = re.match(".*<li>(.+)</li>", line)
             if appending and r1:
                 self.__objectives.append(r1.groups()[0])
-            if re.match(".*</ul>", line) and appending:
+
+            if re.match(".+Requirements.+", line) and appending:
                 break
+
         return self.__objectives
 
     def get_proj_dir(self):
