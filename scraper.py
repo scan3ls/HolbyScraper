@@ -3,7 +3,6 @@ class Scraper:
         Navigate and Download a HTML page
     """
 
-
     def __init__(self):
         """
         --------------
@@ -105,18 +104,18 @@ class Scraper:
 
             res = s.get(self.__login_url)
             html = res.text.split('\n')
-            
+
             self._set_token(html)
             self._set_login()
 
             print("\t->Logging In")
             s.post(self.__login_url, data=self.__data)
-            
+
             print("\t->Traveling to Project Page\n...Done!\n")
             if num is None:
                 url = self.__login_url
             else:
                 url = "https://intranet.hbtn.io/projects/{}".format(str(num))
             res = s.get(url)
-            
+
             return res.text.split('\n')
