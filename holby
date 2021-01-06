@@ -1,12 +1,42 @@
 #!/usr/bin/python3
+"""
+    Scrape and parse html file
+    to setup holberton project directories
+"""
+
 
 def usage(argv):
+    """
+    --------------
+    Method: usage
+    --------------
+    Description:
+        Check if script is run with the
+        proper number of arguments
+    Args:
+        @argv: List of Strings
+            list of arguments retrieved
+            from sys
+    --------------
+    """
 
     if len(argv) != 2:
         print("Usage: ./main.py <project number>")
         exit(1)
 
 def format_dir(pwd):
+    """
+    --------------
+    Method: format_dir
+    --------------
+    Description:
+        Format a given directory path
+        into a more usable format
+    Args:
+        @pwd: String
+            Current working directory
+    --------------
+    """
 
     dirs = pwd.split('/')
     if len(dirs) < 2:
@@ -16,16 +46,57 @@ def format_dir(pwd):
     return result
 
 def check_pwd(pwd, proj_dir):
+    """
+    --------------
+    Method: chech_pwd
+    --------------
+    Description:
+        Checks if current project folder structure
+        is correct
+    Args:
+        @pwd: String
+            formatted current working directory
+        @proj_dir: String
+            expected project directory
+    --------------
+    """
+
     pwd = format_dir(pwd)
     if proj_dir != pwd:
         print("PWD is the wrong directory.")
         exit(1)
 
 def get_html(proj_num):
+    """
+    --------------
+    Method: get_html
+    --------------
+    Description:
+        Download project page as Html and
+        Return a list of lines
+    Args:
+        @proj_num: Integer as String
+            Desired holberton project number
+    --------------
+    """
+
     scraper = Scraper()
     return scraper.scrape(proj_num)
 
 def parse_html(html):
+    """
+    --------------
+    Method: parse_html
+    --------------
+    Description:
+        Traverse html and
+        Retrive desired data
+    Args:
+        @html: List of Strings
+            Line by Line html data
+    --------------
+    """
+
     parser = Parser(html)
     return (
         parser.get_objectives(),
