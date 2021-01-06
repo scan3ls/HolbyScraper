@@ -1,6 +1,21 @@
 class Scraper:
+    """
+        Navigate and Download a HTML page
+    """
+
 
     def __init__(self):
+        """
+        --------------
+        Method: __init__
+        --------------
+        Description:
+            constructor
+        Args:
+            None
+        --------------
+        """
+
         print("\n\t->Initalizing scraper")
         self.__data = {
             'uft8': '&#x2713;',
@@ -13,6 +28,19 @@ class Scraper:
         self.__login_url = 'https://intranet.hbtn.io/auth/sign_in'
 
     def _set_token(self, html):
+        """
+        --------------
+        Method: _set_token
+        --------------
+        Description:
+            Gets the authenticity token
+            and stores it
+        Args:
+            @html: list of strings
+                Each line of html stored
+                in a list
+        --------------
+        """
         print("\t->Retreiving Authenticity Token")
         for line in html:
             if "csrf-token" not in line:
@@ -22,6 +50,17 @@ class Scraper:
             return
 
     def _set_login(self):
+        """
+        --------------
+        Method: _set_login
+        --------------
+        Description:
+            Get and store Holberton login details
+        Args:
+            None
+        --------------
+        """
+
         print("\t->preparring Login Information")
         data = {}
         path = "/opt/HolbyScraper/.env"
@@ -35,10 +74,31 @@ class Scraper:
                 key = line[0]
                 value = line[1]
                 data[key] = value
+
+        if data["user_name"] == "" or data["user_pass"] == "":
+            print(
+                "\n\tCheck login settings in {}".format(path)
+            )
+            exit(1)
+
         self.__data["user[login]"] = data["user_name"]
         self.__data["user[password]"] = data["user_pass"]
 
     def scrape(self, num=None):
+        """
+        --------------
+        Method: scrape
+        --------------
+        Description:
+            Log in to the Holberton intranet and
+            download specific project html page
+        Args:
+            @num: Integer
+                Target project number; listed on
+                the end of the project url
+        --------------
+        """
+
         import requests
 
         with requests.session() as s:
