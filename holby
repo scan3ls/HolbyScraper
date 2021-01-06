@@ -1,0 +1,54 @@
+#!/usr/bin/python3
+
+def usage(argv):
+
+    if len(argv) != 2:
+        print("Usage: ./main.py <project number>")
+        exit(1)
+
+def format_dir(pwd):
+
+    dirs = pwd.split('/')
+    if len(dirs) < 2:
+        print("Please check root directory and repo directory.")
+        exit(1)
+    result = "{}/{}".format(dirs[-2], dirs[-1])
+    return result
+
+def check_pwd(pwd, proj_dir):
+    pwd = format_dir(pwd)
+    if proj_dir != pwd:
+        print("PWD is the wrong directory.")
+        exit(1)
+
+def get_html(proj_num):
+    scraper = Scraper()
+    return scraper.scrape(proj_num)
+
+def parse_html(html):
+    parser = Parser(html)
+    return (
+        parser.get_objectives(),
+        parser.get_proj_dir(),
+        parser.get_files()
+    )
+
+if __name__ == "__main__":
+    from __init__ import *
+
+    usage(argv)
+    proj_num = argv[1]
+
+    html = get_html(proj_num)
+    learn_objectives, proj_dir, files = parse_html(html)
+
+    pwd = getcwd()
+    check_pwd(pwd, proj_dir)
+
+    print()
+    for item in learn_objectives:
+        print(item)
+    print()
+    print(proj_dir, "\n")
+    for item in files:
+        print(item)
