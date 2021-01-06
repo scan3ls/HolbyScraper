@@ -1,9 +1,8 @@
 class Parser:
-"""
-    Parse through HTML data;
-    Store and Return deisred data
-"""
-
+    """
+        Parse through HTML data;
+        Store and Return deisred data
+    """
     def __init__(self, data):
         """
         --------------
