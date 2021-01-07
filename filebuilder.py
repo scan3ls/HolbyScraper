@@ -1,6 +1,6 @@
 class FileBuilder:
     """
-        Creates project directory and file structure 
+        Creates project directory and file structure
         from the root repository
     """
 

@@ -85,10 +85,12 @@ if __name__ == "__main__":
     fb = FileBuilder(fb_data)
     fb.create_files()
 
+    
     md_data = {
-        "file_name": "{}/README".format(proj_dir),
+        "file_name": "{}/README.md".format(proj_dir.split("/")[-1]),
         "learn_objectives": learn_objectives,
         "files": files
     }
 
     readme = MDWriter(md_data)
+    readme.write()
