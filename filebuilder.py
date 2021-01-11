@@ -37,7 +37,7 @@ class FileBuilder:
         --------------
         """
 
-        from os import path
+        from os import path, mkdir
 
         proj_dir = self.__proj_dir.split('/')[1]
         if path.exists(proj_dir) is False:
